@@ -37,10 +37,19 @@ class Slurm(Scheduler):
 
         pbs_flags = []
 
-        pbs_project = pbs_config.get('project', os.environ['PROJECT'])
+        # Retrieve project and append to flags
+        pbs_project = pbs_config.get('project', os.environ.get('PROJECT', 'ICT24_MHPC'))
         pbs_flags.append('-A {project}'.format(project=pbs_project))
-        pbs_flags.append('--time={}'.format(pbs_config.get('walltime')))
+
+       # Retrieve walltime and ntasks and append to flags
+        pbs_flags.append('--time={}'.format(pbs_config.get('walltime'))) 
         pbs_flags.append('--ntasks={}'.format(pbs_config.get('ncpus')))
+
+      # Add partition flag
+        pbs_partition = pbs_config.get('partition', os.environ.get('PARTITION', 'boost_usr_prod'))
+        pbs_flags.append('--partition={}'.format(pbs_partition))
+
+
 
         # Flags which need to be addressed
         # pbs_flags.append('--qos=debug')
