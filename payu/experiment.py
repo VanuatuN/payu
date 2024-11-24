@@ -580,9 +580,9 @@ class Experiment(object):
             model_prog = []
 
             wdir_arg = '-wdir'
-            if self.config.get('scheduler') == 'slurm':
-                # Option to set the working directory differs in slurm
-                wdir_arg = '--chdir'
+            #if self.config.get('scheduler') == 'slurm':
+            #    # Option to set the working directory differs in slurm
+            #    wdir_arg = '--chdir'
             model_prog.append(f'{wdir_arg} {model.work_path}')
 
             # Append any model-specific MPI flags
